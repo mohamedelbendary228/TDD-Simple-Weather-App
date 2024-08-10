@@ -103,7 +103,7 @@ class MockWeatherRepository extends _i1.Mock implements _i8.WeatherRepository {
   }
 
   @override
-  _i9.Future<_i2.Either<_i10.Failure, _i11.WeatherEntitiy>> getCurrentWeather(
+  _i9.Future<_i2.Either<_i10.Failure, _i11.WeatherEntity>> getCurrentWeather(
           String? cityName) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -111,15 +111,15 @@ class MockWeatherRepository extends _i1.Mock implements _i8.WeatherRepository {
           [cityName],
         ),
         returnValue:
-            _i9.Future<_i2.Either<_i10.Failure, _i11.WeatherEntitiy>>.value(
-                _FakeEither_0<_i10.Failure, _i11.WeatherEntitiy>(
+            _i9.Future<_i2.Either<_i10.Failure, _i11.WeatherEntity>>.value(
+                _FakeEither_0<_i10.Failure, _i11.WeatherEntity>(
           this,
           Invocation.method(
             #getCurrentWeather,
             [cityName],
           ),
         )),
-      ) as _i9.Future<_i2.Either<_i10.Failure, _i11.WeatherEntitiy>>);
+      ) as _i9.Future<_i2.Either<_i10.Failure, _i11.WeatherEntity>>);
 }
 
 /// A class which mocks [Dio].

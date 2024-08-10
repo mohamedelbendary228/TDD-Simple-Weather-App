@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class WeatherEntitiy extends Equatable {
+class WeatherEntity extends Equatable {
   final String cityName;
   final String main;
   final String description;
@@ -9,7 +9,7 @@ class WeatherEntitiy extends Equatable {
   final int pressure;
   final int humidity;
 
-  const WeatherEntitiy({
+  const WeatherEntity({
     required this.cityName,
     required this.main,
     required this.description,

@@ -3,5 +3,5 @@ import 'package:tdd_weather_app/core/error/failures.dart';
 import 'package:tdd_weather_app/features/home/domain/entities/weather.dart';
 
 abstract interface class WeatherRepository {
-  Future<Either<Failure, WeatherEntitiy>> getCurrentWeather(String cityName);
+  Future<Either<Failure, WeatherEntity>> getCurrentWeather(String cityName);
 }
