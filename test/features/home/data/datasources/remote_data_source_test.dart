@@ -17,12 +17,12 @@ import '../../../../helpers/test_helper.mocks.dart';
 // */
 
 void main() {
-  late MockDioClient mockDio;
+  late MockDio mockDio;
   late WeatherRemoteDataSourceImpl weatherRemoteDataSourceImpl;
 
   setUp(
     () {
-      mockDio = MockDioClient();
+      mockDio = MockDio();
       weatherRemoteDataSourceImpl =
           WeatherRemoteDataSourceImpl(dioClient: mockDio);
     },

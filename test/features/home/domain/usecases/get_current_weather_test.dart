@@ -7,7 +7,7 @@ import 'package:tdd_weather_app/features/home/domain/usecases/get_current_weathe
 import '../../../../helpers/test_helper.mocks.dart';
 
 //**
-// - we want to ensure that the repository is actucally called
+// - we want to ensure that the repository is actually called
 //   and the data simply passes unchanged through the usecase
 // */
 
@@ -35,7 +35,7 @@ void main() {
   const testCityName = 'New York';
 
   test(
-    'should get current weather details from the repository',
+    'should return a success weather entity from the repository',
     () async {
       // arrange
       when(mockWeatherRepository.getCurrentWeather(testCityName))

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:tdd_weather_app/core/constants/constants.dart';
 import 'package:tdd_weather_app/core/error/exceptions.dart';
-import 'package:tdd_weather_app/core/network/dio_client.dart';
 import 'package:tdd_weather_app/features/home/data/models/weather_model.dart';
 
 abstract interface class WeatherRemoteDataSource {
@@ -11,7 +10,7 @@ abstract interface class WeatherRemoteDataSource {
 }
 
 class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
-  final DioClient dioClient;
+  final Dio dioClient;
 
   WeatherRemoteDataSourceImpl({required this.dioClient});
 
