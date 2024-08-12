@@ -16,12 +16,12 @@ import '../../../../helpers/test_helper.mocks.dart';
 // */
 
 void main() {
-  late MockDio mockDio;
+  late MockDioClient mockDio;
   late WeatherRemoteDataSourceImpl weatherRemoteDataSourceImpl;
 
   setUp(
     () {
-      mockDio = MockDio();
+      mockDio = MockDioClient();
       weatherRemoteDataSourceImpl =
           WeatherRemoteDataSourceImpl(dioClient: mockDio);
     },
@@ -35,8 +35,9 @@ void main() {
         'should return a valid model when the response code is 200',
         () async {
           // arrange
-          when(mockDio.get(Urls.currentWeatherByName(testCityName)))
-              .thenAnswer((_) async {
+          when(
+            mockDio.get(Urls.currentWeatherByName(testCityName)),
+          ).thenAnswer((_) async {
             return Response(
               requestOptions: RequestOptions(),
               statusCode: 200,

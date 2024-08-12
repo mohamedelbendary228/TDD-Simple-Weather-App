@@ -29,12 +29,12 @@ class DioClient {
 
   //Get: ------------------------------------------
   Future<Response> get(
-    String uri,
+    String uri, {
     Map<String, dynamic>? queryParameters,
-    Options options,
+    Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
-  ) async {
+  }) async {
     try {
       final Response response = await _dio.get(
         uri,
