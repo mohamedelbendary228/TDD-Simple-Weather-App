@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tdd_weather_app/core/constants/constants.dart';
+import 'package:tdd_weather_app/core/error/exceptions.dart';
 import 'package:tdd_weather_app/features/home/data/datasources/remote_data_source.dart';
 import 'package:tdd_weather_app/features/home/data/models/weather_model.dart';
 
@@ -29,7 +30,7 @@ void main() {
 
   const testCityName = 'New York';
   group(
-    'get current weather from API',
+    'Weather Remote DataSource ---------------',
     () {
       test(
         'should return a valid model when the response code is 200',
@@ -37,13 +38,16 @@ void main() {
           // arrange
           when(
             mockDio.get(Urls.currentWeatherByName(testCityName)),
-          ).thenAnswer((_) async {
-            return Response(
-              requestOptions: RequestOptions(),
-              statusCode: 200,
-              data: readJson('helpers/dummy_data/dummy_weather_response.json'),
-            );
-          });
+          ).thenAnswer(
+            (_) async {
+              return Response(
+                requestOptions: RequestOptions(),
+                statusCode: 200,
+                data:
+                    readJson('helpers/dummy_data/dummy_weather_response.json'),
+              );
+            },
+          );
 
           // act
           final result =
@@ -51,6 +55,29 @@ void main() {
 
           // assert
           expect(result, isA<WeatherModel>());
+        },
+      );
+
+      test(
+        'should throw a server exception when the response code is 404 or other',
+        () async {
+          // arrange
+          when(
+            mockDio.get(Urls.currentWeatherByName(testCityName)),
+          ).thenAnswer(
+            (_) async {
+              return Response(
+                  requestOptions: RequestOptions(),
+                  statusCode: 404,
+                  data: 'Not found');
+            },
+          );
+          // act
+          final result =
+              weatherRemoteDataSourceImpl.getCurrentWeather(testCityName);
+
+          // assert
+          expect(result, throwsA(isA<ServerException>()));
         },
       );
     },

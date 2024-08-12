@@ -20,8 +20,10 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
     try {
       final response = await dioClient.get(Urls.currentWeatherByName(cityName));
       return WeatherModel.fromJson(jsonDecode(response.data));
-    } on DioException catch (e) {
-      throw ServerException(e.message!);
+    } on DioException catch (dioError) {
+      throw ServerException(dioError.message!);
+    } catch (_) {
+      throw const ServerException('Not found');
     }
   }
 }
