@@ -1,0 +1,78 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:tdd_weather_app/core/constants/constants.dart';
+
+class DioClient {
+  DioClient._();
+
+  static final DioClient instance = DioClient._();
+  static const int receiveTimeout = 30000;
+  static const int connectionTimeout = 30000;
+
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: Urls.baseUrl,
+      connectTimeout: const Duration(milliseconds: connectionTimeout),
+      receiveTimeout: const Duration(milliseconds: receiveTimeout),
+    ),
+  )..interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestBody: true,
+        requestHeader: true,
+        responseHeader: true,
+        responseBody: true,
+        error: true,
+        logPrint: (object) => debugPrint(object.toString()),
+      ),
+    );
+
+  //Get: ------------------------------------------
+  Future<Response> get(
+    String uri,
+    Map<String, dynamic>? queryParameters,
+    Options options,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
+  ) async {
+    try {
+      final Response response = await _dio.get(
+        uri,
+        options: options,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+      );
+      return response;
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
+
+  // Post:----------------------------------------------------------------------
+  Future<Response> post(
+    String uri, {
+    FormData? data,
+    Map<String, dynamic>? queryParameters,
+    required Options options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    try {
+      debugPrint("POST url: $uri, with parameters: $queryParameters");
+      final Response response = await _dio.post(
+        uri,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+}

@@ -11,7 +11,7 @@ class WeatherModel extends WeatherEntity {
     required super.humidity,
   });
 
-  factory WeatherModel.fromJson(Map<String, dynamic> json) => WeatherModel(
+  factory WeatherModel.fromJson(dynamic json) => WeatherModel(
         cityName: json['name'],
         main: json['weather'][0]['main'],
         description: json['weather'][0]['description'],
