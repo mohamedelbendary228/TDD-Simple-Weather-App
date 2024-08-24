@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_weather_app/features/home/domain/entities/weather.dart';
 import 'package:tdd_weather_app/features/home/domain/usecases/get_current_weather.dart';
+import 'package:rxdart/rxdart.dart';
+
 part 'weather_event.dart';
 part 'weather_state.dart';
 
@@ -12,7 +14,10 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc(GetCurrentWeatherUseCase getCurrentWeatherUseCase)
       : _getCurrentWeatherUseCase = getCurrentWeatherUseCase,
         super(WeatherEmpty()) {
-    on<OnCityChangedEvent>(_onCityChanged);
+    on<OnCityChangedEvent>(
+      _onCityChanged,
+      transformer: debounce(const Duration(milliseconds: 500)),
+    );
   }
 
   void _onCityChanged(
@@ -36,4 +41,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     super.onChange(change);
     debugPrint("WeatherBloc $change");
   }
+}
+
+EventTransformer<T> debounce<T>(Duration duration) {
+  return (events, mapper) => events.debounceTime(duration).flatMap(mapper);
 }
