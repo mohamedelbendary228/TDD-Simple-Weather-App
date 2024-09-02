@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:tdd_weather_app/core/constants/constants.dart';
 import 'package:tdd_weather_app/core/error/exceptions.dart';
@@ -18,11 +16,11 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   Future<WeatherModel> getCurrentWeather(String cityName) async {
     try {
       final response = await dioClient.get(Urls.currentWeatherByName(cityName));
-      return WeatherModel.fromJson(jsonDecode(response.data));
+      return WeatherModel.fromJson(response.data);
     } on DioException catch (dioError) {
       throw ServerException(dioError.message!);
-    } catch (_) {
-      throw const ServerException('Not found');
+    } catch (e) {
+      throw ServerException(e.toString());
     }
   }
 }
