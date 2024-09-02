@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
         title: 'TDD Weather App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+          scaffoldBackgroundColor: Colors.white,
+          useMaterial3: false,
         ),
         home: const WeatherPage(),
       ),
